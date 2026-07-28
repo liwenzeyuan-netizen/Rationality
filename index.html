@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preload" as="image" href="assets/rationality-hero-1200.jpg" fetchpriority="high">
+  <title>Rationality｜占星与塔罗咨询</title>
+  <meta name="description" content="Rationality 以占星、塔罗与跨学科分析，帮助来访者理解问题结构、辨认趋势并作出更清醒的选择。">
+  <style>
+    :root {
+      --bg: oklch(96.8% 0.018 84);
+      --surface: oklch(99% 0.01 86);
+      --fg: oklch(20% 0.035 258);
+      --muted: oklch(48% 0.026 250);
+      --border: oklch(82% 0.038 82);
+      --accent: oklch(57% 0.09 78);
+      --deep: oklch(22% 0.067 260);
+      --soft: oklch(93% 0.02 84);
+      --success: oklch(48% 0.09 150);
+      --warn: oklch(62% 0.12 78);
+      --danger: oklch(52% 0.12 28);
+      --font-display: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+      --font-body: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "PingFang SC", serif;
+      --font-mono: "IBM Plex Mono", "SFMono-Regular", "Consolas", monospace;
+      --shadow: 0 24px 70px oklch(20% 0.035 258 / 0.13);
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    body { background-image: radial-gradient(oklch(55% 0.02 80 / .12) 1px, transparent 1px); background-size: 18px 18px; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button, input { font: inherit; }
+    .page { overflow: hidden; }
+    .shell { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .eyebrow {
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin: 0 0 14px;
+    }
+    .section-title {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 1.03;
+      letter-spacing: -.025em;
+      font-weight: 590;
+    }
+    .section-copy { color: var(--muted); max-width: 65ch; margin: 18px 0 0; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: color-mix(in oklch, var(--bg) 84%, transparent);
+      border-bottom: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
+    }
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; }
+    .brand span {
+      font-family: "Optima", "Cormorant Garamond", var(--font-display);
+      letter-spacing: .12em;
+      font-size: 19px;
+      font-weight: 500;
+    }
+    .nav-links { display: flex; gap: 28px; align-items: center; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--fg); }
+    .nav-toggle { display: none; min-width: 44px; min-height: 44px; border: 1px solid var(--border); background: var(--surface); color: var(--fg); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border: 1px solid var(--fg);
+      background: var(--fg);
+      color: var(--surface);
+      letter-spacing: .02em;
+      box-shadow: 0 12px 24px oklch(20% 0.035 258 / .16);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 18px 32px oklch(20% 0.035 258 / .2); }
+    .btn.secondary { background: transparent; color: var(--fg); box-shadow: none; }
+    .hero { padding: 74px 0 82px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, .88fr) minmax(420px, 1.12fr); gap: 60px; align-items: center; }
+    .hero h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(50px, 8vw, 92px);
+      line-height: .96;
+      letter-spacing: -.03em;
+      font-weight: 590;
+    }
+    .hero-lede { margin: 28px 0 0; color: var(--muted); font-size: clamp(17px, 2vw, 19px); max-width: 37rem; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+    .keywords { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 42px; }
+    .keyword { border: 1px solid var(--border); background: color-mix(in oklch, var(--surface) 72%, transparent); padding: 8px 12px; font-size: 13px; color: var(--muted); letter-spacing: .02em; }
+    .hero-seal { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .hero-seal img { width: 54px; height: 54px; display: block; object-fit: cover; border-radius: 50%; box-shadow: 0 12px 30px oklch(20% 0.035 258 / .14); }
+    .hero-seal span { font-family: "Optima", "Cormorant Garamond", var(--font-display); font-size: 14px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg); }
+    .visual-card {
+      position: relative;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      transform: rotate(.6deg);
+    }
+    .visual-card img { aspect-ratio: 16 / 10; width: 100%; object-fit: cover; }
+    .visual-label {
+      position: absolute;
+      right: 28px;
+      bottom: 28px;
+      background: color-mix(in oklch, var(--surface) 92%, transparent);
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      box-shadow: 0 12px 26px oklch(20% 0.035 258 / .12);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .intro { padding: 86px 0; border-top: 1px solid var(--border); }
+    .intro-grid { display: grid; grid-template-columns: .72fr 1.28fr; gap: 70px; }
+    .quote {
+      background: var(--deep);
+      color: var(--surface);
+      padding: 36px;
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .quote::after {
+      content: "";
+      width: 150px;
+      height: 150px;
+      border: 1px solid color-mix(in oklch, var(--accent) 70%, transparent);
+      border-radius: 50%;
+      position: absolute;
+      right: 28px;
+      bottom: 30px;
+      opacity: .52;
+    }
+    .quote p { margin: 0; font-family: var(--font-display); font-size: 34px; line-height: 1.16; letter-spacing: -.015em; position: relative; z-index: 1; }
+    .quote span { color: color-mix(in oklch, var(--surface) 70%, transparent); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; position: relative; z-index: 1; }
+    .value-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); margin-top: 30px; }
+    .value-card { background: var(--surface); padding: 20px; min-height: 136px; }
+    .value-card b { font-family: var(--font-display); font-size: 24px; letter-spacing: -.012em; font-weight: 590; display: block; }
+    .value-card small { color: var(--accent); font-family: var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+    .value-card p { color: var(--muted); margin: 10px 0 0; font-size: 13px; line-height: 1.58; }
+    .services { padding: 88px 0; background: color-mix(in oklch, var(--soft) 70%, var(--bg)); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 42px; }
+    .tabs { display: flex; gap: 8px; border: 1px solid var(--border); padding: 6px; background: var(--surface); }
+    .tab { min-height: 44px; border: 0; padding: 0 18px; background: transparent; color: var(--muted); cursor: pointer; letter-spacing: .02em; }
+    .tab.active { background: var(--deep); color: var(--surface); }
+    .service-panel { display: none; }
+    .service-panel.active { display: block; }
+    .service-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .service-card { background: var(--surface); border: 1px solid var(--border); padding: 30px; display: grid; gap: 16px; }
+    .service-top { display: flex; justify-content: space-between; gap: 20px; align-items: start; }
+    .service-card h3 { margin: 0; font-size: 24px; line-height: 1.25; letter-spacing: -.012em; font-weight: 590; }
+    .price { font-family: var(--font-mono); white-space: nowrap; color: var(--fg); }
+    .service-card p { margin: 0; color: var(--muted); line-height: 1.78; }
+    .service-card ul { margin: 0; padding-left: 1.1em; color: var(--muted); line-height: 1.72; }
+    .service-card li + li { margin-top: 6px; }
+    .process { padding: 88px 0; }
+    .process-list { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1px solid var(--border); margin-top: 38px; }
+    .step { padding: 26px; border-right: 1px solid var(--border); background: color-mix(in oklch, var(--surface) 74%, transparent); }
+    .step:last-child { border-right: 0; }
+    .step span { font-family: var(--font-mono); color: var(--accent); font-size: 12px; letter-spacing: .08em; }
+    .step h3 { margin: 18px 0 10px; font-size: 18px; font-weight: 590; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; }
+    .fit { padding: 88px 0; background: var(--deep); color: var(--surface); }
+    .fit .section-copy { color: color-mix(in oklch, var(--surface) 72%, transparent); }
+    .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 42px; }
+    .fit-card { border: 1px solid oklch(99% 0.01 86 / .16); padding: 30px; background: oklch(99% 0.01 86 / .04); }
+    .fit-card h3 { margin: 0 0 20px; font-size: 22px; font-weight: 590; }
+    .fit-card ul { margin: 0; padding-left: 1.1em; color: color-mix(in oklch, var(--surface) 78%, transparent); }
+    .fit-statement { margin-top: 18px; border: 1px solid oklch(99% 0.01 86 / .16); background: oklch(99% 0.01 86 / .06); padding: clamp(24px, 4vw, 34px); }
+    .fit-statement p { margin: 0; color: color-mix(in oklch, var(--surface) 86%, transparent); font-size: clamp(18px, 2vw, 24px); line-height: 1.8; letter-spacing: .02em; }
+    .fit-statement strong { color: oklch(78% 0.08 78); font-weight: 590; }
+    .consultation-style { margin-top: 18px; border-top: 1px solid oklch(99% 0.01 86 / .16); padding-top: 24px; }
+    .consultation-style p { margin: 0; color: color-mix(in oklch, var(--surface) 78%, transparent); font-size: 16px; line-height: 1.9; max-width: 76ch; }
+    .notes { padding: 88px 0; }
+    .accordion { margin-top: 36px; border-top: 1px solid var(--border); }
+    .item { border-bottom: 1px solid var(--border); }
+    .item button { width: 100%; min-height: 68px; background: transparent; border: 0; color: var(--fg); display: flex; justify-content: space-between; align-items: center; text-align: left; cursor: pointer; padding: 0; }
+    .item b { font-size: 18px; font-weight: 590; }
+    .item span { font-family: var(--font-mono); color: var(--muted); }
+    .item div { display: none; padding: 0 0 24px; color: var(--muted); max-width: 78ch; }
+    .item.open div { display: block; }
+    .contact { padding: 88px 0 54px; background: var(--surface); border-top: 1px solid var(--border); }
+    .contact-grid { display: grid; grid-template-columns: 1fr .86fr; gap: 60px; align-items: start; }
+    .contact-card { border: 1px solid var(--border); padding: 32px; background: var(--bg); box-shadow: var(--shadow); }
+    .contact-row { display: flex; justify-content: space-between; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+    .contact-row:last-child { border-bottom: 0; }
+    .contact-row span { color: var(--muted); }
+    .contact-row b { text-align: right; font-weight: 590; }
+    .closing { padding: 58px 0 66px; background: var(--surface); text-align: center; border-top: 1px solid var(--border); }
+    .closing p { margin: 0 auto; max-width: 760px; font-family: var(--font-display); font-size: clamp(30px, 5vw, 58px); line-height: 1.15; letter-spacing: -.02em; color: var(--fg); }
+    .footer { padding: 28px 0; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); background: var(--surface); }
+    .footer .shell { display: flex; justify-content: space-between; gap: 20px; }
+
+    @media (max-width: 920px) {
+      .shell { width: min(calc(100% - 28px), var(--max)); }
+      .nav-inner { height: 64px; }
+      .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+      .nav-links { position: absolute; left: 14px; right: 14px; top: 64px; display: none; flex-direction: column; align-items: stretch; gap: 0; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 16px 18px; border-bottom: 1px solid var(--border); }
+      .nav-links a:last-child { border-bottom: 0; }
+      .hero { padding: 44px 0 60px; }
+      .hero-grid, .intro-grid, .contact-grid { grid-template-columns: 1fr; gap: 34px; }
+      .value-grid, .service-grid, .fit-grid { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .tabs { margin-top: 24px; width: max-content; max-width: 100%; }
+      .process-list { grid-template-columns: 1fr; }
+      .step { border-right: 0; border-bottom: 1px solid var(--border); }
+      .step:last-child { border-bottom: 0; }
+      .visual-card { transform: none; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 15px; }
+      .hero h1 { font-size: clamp(46px, 17vw, 68px); }
+      .hero-actions { flex-direction: column; }
+      .btn { width: 100%; }
+      .visual-label { position: static; margin-top: 12px; }
+      .brand span { font-size: 16px; letter-spacing: .08em; }
+      .quote { padding: 26px; min-height: 260px; }
+      .quote p { font-size: 28px; }
+      .service-top, .contact-row { display: block; }
+      .price, .contact-row b { display: block; margin-top: 8px; text-align: left; }
+      .tabs { width: 100%; }
+      .tab { flex: 1; }
+      .footer .shell { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="nav" data-od-id="site-navigation">
+      <div class="shell nav-inner">
+        <a class="brand" href="#top" data-od-id="brand-logo"><span>RATIONALITY</span></a>
+        <button class="nav-toggle" type="button" aria-label="打开导航" data-od-id="mobile-menu-button">☰</button>
+        <nav class="nav-links" data-od-id="navigation-links">
+          <a href="#philosophy">品牌理念</a>
+          <a href="#services">咨询服务</a>
+          <a href="#process">咨询流程</a>
+          <a href="#notes">咨询须知</a>
+          <a href="#contact">联系咨询</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero shell" data-od-id="hero-section">
+        <div class="hero-grid">
+          <div>
+            <div class="hero-seal" data-od-id="hero-logo-seal"><img src="assets/rationality-logo-180.jpg" width="180" height="180" alt="Rationality 商标" decoding="async"><span>RATIONALITY</span></div>
+            <p class="eyebrow">Astrology · Tarot · Insight</p>
+            <h1 data-od-id="hero-heading">看见问题的结构<br>理解趋势的方向</h1>
+            <p class="hero-lede" data-od-id="hero-description">占星和塔罗并不是替你决定人生的答案。它们更像是一种观察工具，帮助你梳理内在模式、现实处境与关系结构，在复杂的信息中重新找到判断依据。</p>
+            <div class="hero-actions" data-od-id="hero-actions">
+              <a class="btn" href="#services">了解咨询服务</a>
+              <a class="btn secondary" href="#contact">私信确认咨询</a>
+            </div>
+            <div class="keywords" aria-label="核心关键词">
+              <span class="keyword">洞察</span><span class="keyword">趋势</span><span class="keyword">规划</span><span class="keyword">决策</span>
+            </div>
+          </div>
+          <figure class="visual-card" data-od-id="hero-reference-image">
+            <img src="assets/rationality-hero-1200.jpg" width="1200" height="600" alt="占星盘与深蓝塔罗牌的品牌参考图" fetchpriority="high" decoding="async">
+            <figcaption class="visual-label">Structured Insight</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="intro" id="philosophy" data-od-id="philosophy-section">
+        <div class="shell intro-grid">
+          <aside class="quote" data-od-id="philosophy-quote">
+            <p>提供分析，<br>不制造依赖。</p>
+            <span>Rationality Method</span>
+          </aside>
+          <div>
+            <p class="eyebrow">Brand Philosophy</p>
+            <h2 class="section-title" data-od-id="philosophy-heading">不是替你选择，而是把问题看清。</h2>
+            <p class="section-copy">Rationality 关注的并不只是“未来会发生什么”，而是你为什么总在相似问题中反复、目前处于怎样的人生阶段，以及哪些选择更符合长期发展。塔罗与占星只是入口，具体分析会结合心理学、社会学、管理学与哲学视角，理解问题背后的个人认知、关系结构、现实环境与行动逻辑。</p>
+            <div class="value-grid" data-od-id="value-grid">
+              <article class="value-card" data-od-id="value-card-insight"><small>Insight</small><b>洞察</b><p>从表面问题进入更深层的个人模式、关系结构与现实处境。</p></article>
+              <article class="value-card" data-od-id="value-card-tendency"><small>Tendency</small><b>趋势</b><p>识别阶段性的变化、机会、压力与发展方向，而不是追求绝对预测。</p></article>
+              <article class="value-card" data-od-id="value-card-planning"><small>Planning</small><b>规划</b><p>将信息转化为更清晰的行动顺序、现实策略与长期安排。</p></article>
+              <article class="value-card" data-od-id="value-card-decision"><small>Decision</small><b>决策</b><p>提供分析与参考，帮助你作出属于自己的判断，而不是替你决定。</p></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="services" id="services" data-od-id="services-section">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Consultation</p>
+              <h2 class="section-title" data-od-id="services-heading">选择适合问题深度的咨询方式。</h2>
+              <p class="section-copy">塔罗更适合观察当下状态、问题结构与行动可能；占星则用于理解长期模式、关系结构与阶段趋势。</p>
+            </div>
+            <div class="tabs" role="tablist" aria-label="服务分类" data-od-id="service-tabs">
+              <button class="tab active" type="button" data-tab="tarot" role="tab" aria-selected="true">塔罗咨询</button>
+              <button class="tab" type="button" data-tab="astrology" role="tab" aria-selected="false">占星咨询</button>
+            </div>
+          </div>
+
+          <div class="service-panel active" id="tarot" data-od-id="tarot-services">
+            <div class="service-grid">
+              <article class="service-card" data-od-id="service-basic-tarot"><div class="service-top"><h3>单议题基础咨询</h3><span class="price">¥88｜约30分钟</span></div><p>聚焦一个边界清晰的具体问题，通过塔罗快速观察当前状态、对方或环境反馈、阻碍点与下一步行动可能。</p><ul><li>适合一个明确的感情问题、事业困惑或具体选择</li><li>包含文字、语音条或实时语音解读，并提供牌阵图片</li><li>不适合复杂背景、多线问题或连续追问</li></ul></article>
+              <article class="service-card" data-od-id="service-deep-tarot"><div class="service-top"><h3>深度分析咨询</h3><span class="price">¥188｜约50分钟</span></div><p>针对较复杂的主题或一组相互关联的问题，结合牌面与现实背景，分析原因、关系结构、可调整的位置和行动方向。</p><ul><li>适合复杂关系矛盾、多因素事业选择或长期反复问题</li><li>允许咨询过程中进行合理追问，帮助校准分析边界</li><li>重点不是“给结论”，而是把局面拆清楚</li></ul></article>
+              <article class="service-card" data-od-id="service-reality-issue"><div class="service-top"><h3>现实议题咨询</h3><span class="price">¥68｜约20分钟</span></div><p>不使用塔罗牌，围绕情感、事业或个人发展问题，基于现实信息进行交流、拆解与建议。</p><ul><li>适合暂时不需要占卜工具，但需要客观外部视角的人</li><li>帮助快速梳理问题主线、利益关系与下一步选择</li><li>适合小范围决策，不替代长期陪跑或心理咨询</li></ul></article>
+              <article class="service-card" data-od-id="service-monthly-trend"><div class="service-top"><h3>月度趋势分析</h3><span class="price">¥199｜约50分钟</span></div><p>通过塔罗分析未来一个月的整体主题，重点观察感情与事业领域的状态变化、提醒事项与行动节奏。</p><ul><li>适合希望按月复盘、调整策略、观察阶段性趋势的人</li><li>季度套餐 ¥568｜连续三个月，适合变化期持续观察</li><li>月度总结报告可加购 ¥30，仅随月度趋势分析或季度套餐加购，不单独售卖</li></ul></article>
+            </div>
+          </div>
+
+          <div class="service-panel" id="astrology" data-od-id="astrology-services">
+            <div class="service-grid">
+              <article class="service-card" data-od-id="service-natal-chart"><div class="service-top"><h3>本命盘单主题咨询</h3><span class="price">¥399｜约45分钟</span></div><p>围绕一个具体议题进入本命盘结构，观察你的反应模式、资源位置、限制来源，以及这个问题为什么会反复出现。</p><ul><li>适合感情关系、职业方向、自我认知、成长议题与阶段困惑</li><li>会把星盘语言转化为现实处境中的可理解逻辑</li><li>输出核心议题梳理、风险提醒与可执行行动建议</li></ul></article>
+              <article class="service-card" data-od-id="service-synastry"><div class="service-top"><h3>关系合盘咨询</h3><span class="price">¥799｜约75分钟</span></div><p>通过双方星盘与关系盘，分析吸引来源、互动节奏、冲突触发点，以及彼此需求是否能够在现实中被承接。</p><ul><li>适合亲密关系、暧昧关系、合作关系中的深层理解</li><li>重点看沟通模式、情绪循环、权力位置与关系课题</li><li>需要双方尽可能准确的出生年月日、时间与地点</li></ul></article>
+              <article class="service-card" data-od-id="service-year-field"><div class="service-top"><h3>单领域年运咨询</h3><span class="price">¥699｜约60分钟</span></div><p>聚焦未来一年中的一个具体领域，拆解阶段性机会、压力、关键月份与行动节奏，帮助你提前安排资源。</p><ul><li>可选择情感、事业、学业或人生方向</li><li>适合已经有明确目标，但需要判断时机与策略的人</li><li>获得关键阶段、注意事项与年度行动建议</li></ul></article>
+              <article class="service-card" data-od-id="service-full-year"><div class="service-top"><h3>完整年度主题咨询</h3><span class="price">¥999｜约90分钟</span></div><p>从全年视角整合个人成长、关系、事业、金钱与生活节奏，建立一份更完整的年度战略地图。</p><ul><li>适合年度规划、人生转折、换城市/换工作等重大调整前</li><li>会梳理全年核心主题、不同阶段重点与现实议题</li><li>帮助你理解未来一年应当投入、收缩或重新布局的方向</li></ul></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="process" id="process" data-od-id="process-section">
+        <div class="shell">
+          <p class="eyebrow">Process</p>
+          <h2 class="section-title" data-od-id="process-heading">先确认是否适合，再进入咨询。</h2>
+          <div class="process-list" data-od-id="process-list">
+            <article class="step" data-od-id="process-step-view"><span>01</span><h3>查看服务</h3><p>先了解不同项目的内容、时长、价格与适用范围。</p></article>
+            <article class="step" data-od-id="process-step-message"><span>02</span><h3>私信确认</h3><p>通过微信说明希望咨询的问题，并确认适合的服务类型。</p></article>
+            <article class="step" data-od-id="process-step-submit"><span>03</span><h3>提交信息</h3><p>按照咨询项目提供必要资料，并完成费用支付。</p></article>
+            <article class="step" data-od-id="process-step-prepare"><span>04</span><h3>准备分析</h3><p>占星项目提前备盘；塔罗项目确认问题后进行解读。</p></article>
+            <article class="step" data-od-id="process-step-complete"><span>05</span><h3>完成咨询</h3><p>按照约定的形式与时间完成咨询，必要时提供报告或牌阵图片。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="fit" data-od-id="fit-section">
+        <div class="shell">
+          <p class="eyebrow">Boundary</p>
+          <h2 class="section-title" data-od-id="fit-heading">适合有判断力，也愿意面对真实问题的人。</h2>
+          <p class="section-copy">Rationality 不提供绝对答案，也不替代医疗、法律、心理治疗或投资建议。咨询是认识自己与整理问题的过程，而不是对未来的保证。</p>
+          <div class="fit-grid">
+            <article class="fit-card" data-od-id="fit-good"><h3>更适合</h3><ul><li>希望深入理解自身模式的人</li><li>正在经历感情或事业困惑的人</li><li>处于人生转折或选择阶段的人</li><li>愿意面对真实问题并进行自我反思的人</li><li>能够理性看待占星与塔罗工具的人</li></ul></article>
+            <article class="fit-card" data-od-id="fit-not-good"><h3>可能不适合</h3><ul><li>希望获得绝对答案的人</li><li>希望咨询师替自己作出决定的人</li><li>对同一问题短时间内反复占问的人</li><li>希望窥探第三方隐私的人</li><li>需要即时回复或紧急加单的人</li></ul></article>
+          </div>
+          <div class="fit-statement" data-od-id="independent-client-copy">
+            <p>我个人认为我所链接到的客人，肯定是在某个领域的强者。强者是不需要被别人带领的，只需要阶段性的战略评估、决策和方向建议。<strong>因此我不做长期陪跑，只提供阶段性的战略决策辅助与布局规划服务。</strong></p>
+          </div>
+          <div class="consultation-style" data-od-id="consultation-style-copy">
+            <p>咨询风格偏向理性、温柔，以现实问题为基础，尊重你的感受，同时指出问题中可能被忽略的矛盾、限制与责任。咨询不是让你不断向外寻找答案，而是帮助你逐渐建立自己的判断系统。关注实践而不止于解释，除了分析问题本身，也关注这些认识如何落实到行动、关系与现实生活中。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="notes" id="notes" data-od-id="notes-section">
+        <div class="shell">
+          <p class="eyebrow">Before Consultation</p>
+          <h2 class="section-title" data-od-id="notes-heading">咨询前须知</h2>
+          <p class="section-copy">为了保障咨询质量，请在确认咨询前认真阅读以下内容。确认咨询并完成付款，即代表你已阅读、理解并同意咨询说明。</p>
+          <div class="accordion" data-od-id="notes-accordion">
+            <article class="item open" data-od-id="note-principle"><button type="button"><b>咨询态度与基本原则</b><span>01</span></button><div>请尽可能准确地说明问题及必要背景，并在咨询过程中保持基本尊重。咨询所提供的内容属于分析、参考与建议，不构成强制性决定；最终选择权与行动责任始终属于来访者本人。</div></article>
+            <article class="item" data-od-id="note-limit"><button type="button"><b>工具性质与局限</b><span>02</span></button><div>占星与塔罗用于观察个人模式、问题结构、阶段趋势与潜在可能，并不具有绝对性。涉及严重情绪危机、医疗、法律、投资等事项时，请优先联系对应专业机构。</div></article>
+            <article class="item" data-od-id="note-scope"><button type="button"><b>不接受的咨询范围</b><span>03</span></button><div>不咨询生死疾病、怀孕生育、金融投资、法律责任、考试精确结果、违法或伤害他人的问题，也不以侵犯第三方隐私的方式分析他人。</div></article>
+            <article class="item" data-od-id="note-refund"><button type="button"><b>预约、改期与退款</b><span>04</span></button><div>服务需提前确认并支付全款。占星项目一旦开始备盘、塔罗项目一旦开始抽牌或解读，原则上不再退款。如需改期，请尽量至少提前 24 小时联系。</div></article>
+            <article class="item" data-od-id="note-privacy"><button type="button"><b>隐私与内容使用</b><span>05</span></button><div>咨询涉及的个人信息、出生资料、聊天记录与问题背景均会被严格保密。录音、报告、牌阵图片及聊天内容仅限本人使用，不得未经允许公开发布或用于商业用途。</div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact" data-od-id="contact-section">
+        <div class="shell contact-grid">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2 class="section-title" data-od-id="contact-heading">请先阅读，再私信确认。</h2>
+            <p class="section-copy">私信时建议简单说明希望咨询的服务项目、当前主要问题、希望采用的沟通形式，以及可接受的咨询时间。微信仅用于服务咨询、项目确认和时间沟通，不提供免费解牌、免费星盘分析或长期私聊答疑。</p>
+          </div>
+          <aside class="contact-card" data-od-id="contact-card">
+            <div class="contact-row"><span>微信</span><b>W12shuijiaole</b></div>
+            <div class="contact-row"><span>沟通内容</span><b>服务项目、主要问题、咨询形式、可选时间</b></div>
+          </aside>
+        </div>
+      </section>
+      <section class="closing" data-od-id="closing-statement">
+        <div class="shell"><p>看见结构 理解趋势<br>重新获得选择的主动权</p></div>
+      </section>
+    </main>
+
+    <footer class="footer" data-od-id="site-footer">
+      <div class="shell"><span>Rationality｜Astrology · Tarot · Insight</span></div>
+    </footer>
+  </div>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-label', open ? '关闭导航' : '打开导航');
+    });
+    navLinks.addEventListener('click', (event) => {
+      if (event.target.tagName === 'A') navLinks.classList.remove('open');
+    });
+
+    document.querySelector('.tabs').addEventListener('click', (event) => {
+      const tab = event.target.closest('.tab');
+      if (!tab) return;
+      document.querySelectorAll('.tab').forEach((item) => {
+        item.classList.remove('active');
+        item.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.service-panel').forEach((panel) => panel.classList.remove('active'));
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+
+    document.querySelector('.accordion').addEventListener('click', (event) => {
+      const button = event.target.closest('.item button');
+      if (!button) return;
+      button.closest('.item').classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
